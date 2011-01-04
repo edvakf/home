@@ -1,0 +1,247 @@
+## options
+
+# compacked complete list display
+#
+[[ $OSTYPE = "darwin10.0" ]] && MACOSX='yes' || MACOSX=''
+[[ $OSTYPE = "cygwin" ]] && CYGWIN='yes' || CYGWIN=''
+
+# completion list item width equal to 'ls' item width
+[ $MACOSX ] && setopt no_list_packed || setopt list_packed
+
+## paths
+if [ $MACOSX ]; then
+  # for Google App Engine Oil
+  export GAEO_HOME=$HOME/Programming/gaeo
+  export GAEO_BIN=$GAEO_HOME/bin
+
+  #path to macports & fink binary
+  #export PATH=/sw/bin:$PATH
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export PATH=$PATH:/usr/local/bin
+  export PATH=$PATH:$GAEO_HOME/bin
+
+  #edp python
+  export PATH=/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
+
+  #export MANPATH=/sw/share/man:$MANPATH
+  export MANPATH=/usr/local/git/man:$MANPATH
+  export MANPATH=/opt/local/man:$MANPATH
+fi
+
+if [ $CYGWIN ]; then
+  # use MinGW gcc instead of cygwin gcc
+  # http://www.sixnine.net/cygwin/translation/mingw-doc/mingwfaq.html
+  #export PATH=/cygdrive/c/MinGW/bin:$PATH
+fi
+
+export PATH=$HOME/bin:$PATH
+
+
+## completion
+compdef _ls node
+
+##aliases
+if [ $MACOSX ]; then
+  alias ls='ls -G'
+else
+  alias ls='ls --color'
+fi
+alias ll='ls -l'
+alias la='ls -a'
+alias ld='ls -ld'
+
+# global alias - works not only as the first word of command
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+
+alias cd..='cd ..'
+alias cd-='cd -'
+
+alias -g G='| grep'
+alias -g L='| less'
+
+if [ $CYGWIN ]; then
+  alias open='cygstart'
+#  alias putclip='$HOME/bin/putclip.sh'
+#  alias getclip='$HOME/bin/getclip.sh'
+
+  # http://d.hatena.ne.jp/runfor/20080927/1222536300
+  alias lv='TERM=cygwin; lv'
+fi
+
+if [ $MACOSX ]; then
+  alias -g C='| pbcopy'
+
+  #alias vi='/usr/bin/vim'
+  function vi() { # 'vi' is 'ls' if argv[1] is a directory
+    if [[ -d $1 ]]
+    then
+      ls $1
+    else
+      /usr/bin/vim $@
+    fi
+  }
+  alias vim='/Users/atsushi/bin/mvim'
+  alias vless='/usr/share/vim/vim72/macros/less.sh -c "set nolist"'
+  alias vl='vless'
+
+  alias diff='/opt/local/bin/colordiff'
+
+  alias Pfirefox="/Applications/Firefox.app/Contents/MacOS/firefox-bin -P"
+  alias anotheropera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir another"
+  alias cleanopera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir clean"
+  alias japaneseopera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir japanese"
+
+  alias pbcopy="nkf -w | __CF_USER_TEXT_ENCODING=0x$(printf %x $(id -u)):0x08000100:14 pbcopy"
+
+  alias ql='qlmanage -p "$@" >& /dev/null'
+  alias man='TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man'
+  alias kill="kill -9"
+  alias yck="rlwrap -c yorick"
+fi
+
+## other
+
+#set color of ls -G
+#see also "man ls"
+#http://webtech-walker.com/archive/2008/12/15101251.html
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export LS_COLORS='di=01;36:ln=01;35:ex=01;31'
+zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=31'
+#color autocomplete list as the ls color
+#zstyle ':completion:*' list-colors ${(s.:.)LSCOLORS}
+
+# case-insensitive (all),partial-word and then substring completion
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# http://wiki.fdiary.net/zsh/?FAQ%40zsh%A5%B9%A5%EC
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+
+#when using GNU screen, set window title as directory & command
+#http://shunirr.org/archives/104
+if [ $TERM = "screen" ]; then
+   precmd () {
+#      screen -X title $(basename $(print -P "%~"))
+      screen -X title $(basename $(pwd)) 
+   }
+   preexec () {
+      screen -X eval "title '$1'"
+   } 
+fi
+
+
+# Cygwin ssh-agent sharing
+# http://www.snowelm.com/~t/doc/tips/20030625.ja.html
+if [ $CYGWIN ]; then
+
+  echo -n "ssh-agent: "
+  source ~/.ssh-agent-info
+  /usr/bin/ssh-add -l >&/dev/null
+  if [ $? = 2 ] ; then
+    echo -n "ssh-agent: restart...."
+    /usr/bin/ssh-agent >~/.ssh-agent-info
+    source ~/.ssh-agent-info
+  fi
+
+  if /usr/bin/ssh-add -l >&/dev/null ; then
+    echo "ssh-agent: Identity is already stored."
+  else
+    /usr/bin/ssh-add
+  fi
+
+fi
+
+
+# rvm
+if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+# rvm completion
+fpath=($HOME/.rvm/scripts/zsh/Completion $fpath)
+compdef _rvm rvm
+
+
+#set window/tab title 
+#http://www.macosxhints.com/article.php?story=20060502160527780
+precmd() {
+  print -Pn "\e]0;%~/\a"
+}
+
+# ls after cd
+function chpwd() { ls }
+
+# can't move cursor in 'vi' under 'screen'
+#http://www.takulab.com/mac/mac-vim-configure/
+if [ $TERM = "screen" ]; then
+  if [ $MAC ]; then
+    export TERM=dtterm
+  fi
+fi
+
+#http://d.hatena.ne.jp/aircastle/20080428/1209313162
+#rm to trash
+#function rm() {
+#  if [ -d ~/.Trash ]; then
+#    local DATE=`date "+%y%m%d-%H%M%S"`
+#    mkdir ~/.Trash/$DATE
+#    for i in $@; do
+#       if [ -e $i ]; then
+#        mv $i ~/.Trash/$DATE/
+#      else
+#        echo "$i : not found"
+#      fi
+#    done
+#  else
+#    /bin/rm $@
+#  fi
+#}
+
+function insert_parens() {
+  LBUFFER+="()"
+  zle backward-char
+}
+zle -N insert-parens insert_parens
+bindkey "(" insert-parens
+
+function insert_braces() {
+  LBUFFER+="{}"
+  zle backward-char
+}
+zle -N insert-braces insert_braces
+bindkey "{" insert-braces
+
+function insert_brackets() {
+  LBUFFER+="[]"
+  zle backward-char
+}
+zle -N insert-brackets insert_brackets
+bindkey "[" insert-brackets
+
+function insert_quotes() {
+  if [[ "${LBUFFER%[[:alpha:]]}" == "$LBUFFER" ]]; then
+    LBUFFER+="''"
+    zle backward-char
+  else
+    zle self-insert
+  fi
+}
+zle -N insert-quotes insert_quotes
+bindkey "'" insert-quotes
+
+function insert_double_quotes() {
+  LBUFFER+='""'
+  zle backward-char
+}
+zle -N insert-double-quotes insert_double_quotes
+bindkey '"' insert-double-quotes
+
+
+#if [ -f "$HOME/.zsh/auto-fu.zsh" ]; then
+#  # auto-fu.zsh http://d.hatena.ne.jp/hchbaw/20100526/1274886125
+#  . $HOME/.zsh/auto-fu.zsh
+#  zle-line-init () {auto-fu-init;}
+#  zle -N zle-line-init
+#fi
+
+
+# go backward in completion list
+bindkey '^[[Z' reverse-menu-complete

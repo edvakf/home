@@ -1,0 +1,15 @@
+#http://1-byte.jp/2011/01/04/home_with_git/
+/*
+/.*
+
+!/.zshrc
+!/.zshrc.my
+!/.vim
+!/.vimrc
+!/.gitignore
+!/.gitconfig
+!/.gitmodules
+!/bin/*.sh
+!/bin/*.rb
+
+/.vim/.netrwhist

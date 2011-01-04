@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/cygdrive/c/Users/atsushi/My Dropbox/Programming/chrome/pixivreader'
+let g:netrw_dirhist_2='/cygdrive/c/Users/atsushi/My Dropbox/Programming/userjs'
+let g:netrw_dirhist_3='/cygdrive/c/Users/atsushi/My Dropbox/Programming/chrome/EijiroX/src/public_html'
+let g:netrw_dirhist_4='/cygdrive/c/Users/atsushi/My Dropbox/Programming/chrome/EijiroX/src'
+let g:netrw_dirhist_5='/cygdrive/c/Users/atsushi/My Dropbox/Programming/userjs'
+let g:netrw_dirhist_6='/cygdrive/c/Users/atsushi/My Dropbox/Programming/chrome/EijiroX/src/background'
+let g:netrw_dirhist_7='/home/atsushi/local/EijiroX/src/background'
+let g:netrw_dirhist_8='/home/atsushi/local/cocproxy/files'
+let g:netrw_dirhist_9='/home/atsushi/local/EijiroX/crx/background'

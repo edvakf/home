@@ -1,0 +1,7 @@
+[color]
+	ui = true
+[core]
+	autocrlf = input
+[user]
+	name = Atsushit Takayama
+	email = taka.atsushi@gmail.com
