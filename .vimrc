@@ -3,8 +3,12 @@ set encoding=utf-8
 " backspace for <LF> etc.
 set backspace=indent,eol,start
 
-"for ruby
-" http://pools.jp/2006/05/02/ruby-vi-vimrc-color/
+" don't append LF at the end of file
+" http://d.hatena.ne.jp/odz/20070111/1168558681
+" this turns off expandtab, so bring it before that
+set binary
+set noendofline
+
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -87,9 +91,6 @@ function CompleteSingleQuote()
 endfunction
 
 
-" don't append LF at the end of file
-"http://d.hatena.ne.jp/odz/20070111/1168558681
-set binary noendofline
 
 
 
