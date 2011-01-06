@@ -87,6 +87,12 @@ function CompleteSingleQuote()
 endfunction
 
 
+" don't append LF at the end of file
+"http://d.hatena.ne.jp/odz/20070111/1168558681
+set binary noendofline
+
+
+
 " actionscript http://www.vim.org/scripts/script.php?script_id=3275
 au Bufread,BufNewFile *.as set filetype=actionscript
 
