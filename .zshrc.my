@@ -31,7 +31,7 @@ fi
 if [ $CYGWIN ]; then
   # use MinGW gcc instead of cygwin gcc
   # http://www.sixnine.net/cygwin/translation/mingw-doc/mingwfaq.html
-  #export PATH=/cygdrive/c/MinGW/bin:$PATH
+  export PATH=/cygdrive/c/MinGW/bin:$PATH
 fi
 
 export PATH=$HOME/bin:$PATH
@@ -47,6 +47,7 @@ else
   alias ls='ls --color'
 fi
 alias ll='ls -l'
+alias lh='ls -lh'
 alias la='ls -a'
 alias ld='ls -ld'
 
