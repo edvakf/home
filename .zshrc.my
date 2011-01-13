@@ -62,6 +62,8 @@ alias cd-='cd -'
 alias -g G='| grep'
 alias -g L='| less'
 
+alias wget='wget --no-check-certificate'
+
 if [ $CYGWIN ]; then
   alias open='cygstart'
 #  alias putclip='$HOME/bin/putclip.sh'
