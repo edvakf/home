@@ -38,7 +38,7 @@ setopt pushd_ignore_dups
 
 # command correct edition before each completion attempt
 #
-#setopt correct
+setopt correct
 
 # no beep sound when complete list displayed
 #
