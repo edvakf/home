@@ -13,3 +13,6 @@
 !/bin/*.rb
 
 /.vim/.netrwhist
+.DS_Store
+desktop.ini
+Thumbs.db
