@@ -1,4 +1,5 @@
-set encoding=utf-8
+set fileencodings=utf-8,cp932
+set fileformats=unix,dos
 
 " backspace for <LF> etc.
 set backspace=indent,eol,start
