@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 
 if ARGV[0] == "-c"
-  open('/dev/clipboard', 'w+') {|f|
+  path = ''
+  open('/dev/clipboard', 'r') {|f|
     path = %x{cygpath -u "#{f.read}"}.strip
-    puts "copying: " + path
+  }
+  puts "copying: " + path
+  open('/dev/clipboard', 'w') {|f|
     f.print path
   }
 else
