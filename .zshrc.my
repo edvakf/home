@@ -96,7 +96,7 @@ if [ $MACOSX ]; then
   alias cleanopera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir clean"
   alias japaneseopera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir japanese"
 
-  alias pbcopy="nkf -w | __CF_USER_TEXT_ENCODING=0x$(printf %x $(id -u)):0x08000100:14 pbcopy"
+  alias pbcopy="__CF_USER_TEXT_ENCODING=0x$(printf %x $(id -u)):0x08000100:14 pbcopy"
 
   alias ql='qlmanage -p "$@" >& /dev/null'
   alias man='TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man'
