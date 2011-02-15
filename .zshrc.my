@@ -248,3 +248,5 @@ bindkey '"' insert-double-quotes
 
 # go backward in completion list
 bindkey '^[[Z' reverse-menu-complete
+
+

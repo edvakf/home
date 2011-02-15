@@ -49,6 +49,9 @@ command! W w
 command! WQ wq
 command! Wq wq
 
+" ; to : (no need to press shift)
+noremap ; :
+
 "http://vim-users.jp/2010/02/hack122/
 "yank to the end of the line
 nnoremap Y y$
@@ -63,7 +66,7 @@ inoremap <C-l> <Esc>
 if !has('win32')
   autocmd InsertLeave * wall
 endif
- 
+
 " http://d.hatena.ne.jp/dayflower/20081208/1228725403
 " one liner comment will not be not auto-indented
 if has("autocmd")
@@ -147,7 +150,7 @@ if !has('win32')
   endif
 endif
 
-" html output 
+" html output
 let html_no_pre = 0
 unlet html_no_pre
 let html_use_css = 1
@@ -178,7 +181,7 @@ endif
 " change window size
 if has("gui_running")
   set lines=40 columns=120
-endif 
+endif
 
 " disable bell
 "":set visualbell t_vb=
