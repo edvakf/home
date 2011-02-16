@@ -249,4 +249,35 @@ bindkey '"' insert-double-quotes
 # go backward in completion list
 bindkey '^[[Z' reverse-menu-complete
 
+# run in cmd.exe (on cygwin), with a .bat file
+# http://stackoverflow.com/questions/366928/invoking-cl-exe-msvc-compiler-in-cygwin-shell
+if [ $CYGWIN ]; then
+  function run_with_bat()
+  {
+    batfile=$1; shift
+    tmpfile="$TMP/tmp$$.bat"
+    echo "@echo off" > $tmpfile
+    echo "call \"%$batfile%vsvars32.bat\" >NUL:" >> $tmpfile
+    echo "bash -c \"%*\"" >> $tmpfile
+    cmd /c `cygpath -m "$tmpfile"` "$@"
+    status=$?
+    rm -f $tmpfile
+    return $status
+  }
+
+  function run_vs10()
+  {
+    run_with_bat VS100COMNTOOLS "$@"
+  }
+
+  function cl()
+  {
+    run_vs10 cl "$@"
+  }
+
+  function nmake()
+  {
+    run_vs10 cl "$@"
+  }
+fi
 
