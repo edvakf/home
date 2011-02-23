@@ -44,7 +44,6 @@ compdef _ls node
 if [ $CYGWIN ]; then
   function ls_moderate() {
     num=`command ls -1 "$@" | wc -l`
-    echo $num
     if [[ $num -gt 200 ]]; then
       # native
       command ls "$@"
