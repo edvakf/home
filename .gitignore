@@ -4,6 +4,10 @@
 
 !/.zshrc
 !/.zshrc.my
+!/.zprofile
+!/.zlogin
+!/.zlogout
+!/.zshenv
 !/.vim
 !/.vimrc
 !/.gitignore
