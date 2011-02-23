@@ -40,9 +40,26 @@ export PATH=$HOME/bin:$PATH
 ## completion
 compdef _ls node
 
+#cygwin ls
+if [ $CYGWIN ]; then
+  function ls_moderate() {
+    num=`command ls -1 "$@" | wc -l`
+    echo $num
+    if [[ $num -gt 200 ]]; then
+      # native
+      command ls "$@"
+    else
+      # colored
+      command ls --color "$@"
+    fi
+  }
+fi
+
 ##aliases
 if [ $MACOSX ]; then
   alias ls='ls -G'
+elif [ $CYGWIN ]; then
+  alias ls='ls_moderate'
 else
   alias ls='ls --color'
 fi
@@ -170,7 +187,9 @@ precmd() {
 }
 
 # ls after cd
-function chpwd() { ls }
+function chpwd() {
+  ls
+}
 
 # can't move cursor in 'vi' under 'screen'
 #http://www.takulab.com/mac/mac-vim-configure/
