@@ -174,23 +174,6 @@ if [ $TERM = "screen" ]; then
   fi
 fi
 
-#http://d.hatena.ne.jp/aircastle/20080428/1209313162
-#rm to trash
-#function rm() {
-#  if [ -d ~/.Trash ]; then
-#    local DATE=`date "+%y%m%d-%H%M%S"`
-#    mkdir ~/.Trash/$DATE
-#    for i in $@; do
-#       if [ -e $i ]; then
-#        mv $i ~/.Trash/$DATE/
-#      else
-#        echo "$i : not found"
-#      fi
-#    done
-#  else
-#    /bin/rm $@
-#  fi
-#}
 
 function insert_parens() {
   LBUFFER+="()"
