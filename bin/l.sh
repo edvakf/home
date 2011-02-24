@@ -1,12 +1,12 @@
 #!/bin/sh
 
-if [[ -f "$1" ]]; then
-  less "$1"
+if [[ -f "$@" ]]; then
+  less "$@"
 else
-  if [[ "$1" = "" ]]; then
-    ls -G
+  if [[ "$@" = "" ]]; then
+    ls
   else
-    ls -G "$1"
+    ls "$@"
   fi
 fi
 
