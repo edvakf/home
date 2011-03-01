@@ -131,7 +131,10 @@ if !has('win32')
   set backupdir=~/.backup/vim
   set viewdir=~/.backup/view
   set directory=~/.backup/vim/tmp
-  call system("mkdir -p ~/.backup/vim/tmp")
+  
+  if empty(glob("~/.backup/vim/tmp"))
+    call system("mkdir -p ~/.backup/vim/tmp")
+  endif
 
   if has( "autocmd" )
     autocmd BufWritePre * call UpdateBackupFile()
