@@ -118,6 +118,27 @@ if [ $MACOSX ]; then
   alias yck="rlwrap -c yorick"
 fi
 
+
+# when "v" is used instead of "vi", and if the file is already opened by another "v" process, 
+# then reuse that process
+function v(){
+  if [ $# -ne 1 ]; then
+    vi $@
+  else
+    newvi='yes'
+    jobs | sed 's/.*suspended  //' | while read cmd; do
+      if [ "$cmd" = "v $@" ]; then
+        newvi=''
+        fg %$cmd
+        break
+      fi
+    done
+    if [ $newvi ]; then
+      vi "$@"
+    fi
+  fi
+}
+
 ## other
 
 #set color of ls -G
