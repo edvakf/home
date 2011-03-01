@@ -47,7 +47,7 @@ if [ $MACOSX ]; then
 elif [ $CYGWIN ]; then
   #cygwin stat is very slow, so don't show color if there are more than 150 files
   function ls_moderate() {
-    num=`command ls -1 "$@" | wc -l`
+    num=`command ls -1 "$@" 2> /dev/null | wc -l`
     if [[ $num -gt 150 ]]; then
       # native
       command ls "$@"
