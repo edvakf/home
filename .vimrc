@@ -94,7 +94,13 @@ function CompleteSingleQuote()
   end
 endfunction
 
-
+" surround selected area in brackets etc.
+vnoremap f( "xd:let @x="(".@x.")"<CR>"xP
+vnoremap f[ "xd:let @x="[".@x."]"<CR>"xP
+vnoremap f{ "xd:let @x="{".@x."}"<CR>"xP
+vnoremap f" "xd:let @x='"'.@x.'"'<CR>"xP
+vnoremap f' "xd:let @x="'".@x."'"<CR>"xP
+vnoremap f< "xd:let @x="<".@x.">"<CR>"xP
 
 
 
