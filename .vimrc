@@ -74,10 +74,10 @@ if has("autocmd")
         \join(filter(split(&l:comments, ','), 'v:val =~ "^[sme]"'), ',')
 endif
 
-map j gj
-map k gk
-map <Down> gj
-map <Up> gk
+noremap j gj
+noremap k gk
+noremap <Down> gj
+noremap <Up> gk
 
 "closing brace, quote, etc. completion
 inoremap { {}<LEFT>
@@ -116,15 +116,15 @@ au Bufenter *.lyx set filetype=tex
 au Bufenter .crontab set filetype=crontab
 
 " emacs like editing
-map! <C-A>  <Home>
-map! <C-E>  <End>
-map! <C-B>  <Left>
-map! <C-F>  <Right>
-map! <C-N>  <Down>
-map! <C-P>  <UP>
-map! <C-D>  <Delete>
-imap <C-K>  <Esc>Da
-imap <C-Y>  <Esc>pa
+inoremap <C-A>  <Home>
+inoremap <C-E>  <End>
+inoremap <C-B>  <Left>
+inoremap <C-F>  <Right>
+inoremap <C-N>  <Down>
+inoremap <C-P>  <UP>
+inoremap <C-D>  <Delete>
+inoremap <C-K>  <Esc>Da
+inoremap <C-Y>  <Esc>pa
 
 "http://www.his.kanazawa-it.ac.jp/~idurumi/linux/vim/vimrc07.html
 set ruler
