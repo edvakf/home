@@ -95,12 +95,12 @@ function CompleteSingleQuote()
 endfunction
 
 " surround selected area in brackets etc.
-vnoremap f( "xd:let @x="(".@x.")"<CR>"xP
-vnoremap f[ "xd:let @x="[".@x."]"<CR>"xP
-vnoremap f{ "xd:let @x="{".@x."}"<CR>"xP
-vnoremap f" "xd:let @x='"'.@x.'"'<CR>"xP
-vnoremap f' "xd:let @x="'".@x."'"<CR>"xP
-vnoremap f< "xd:let @x="<".@x.">"<CR>"xP
+vnoremap f( s(<C-R>")<ESC>
+vnoremap f[ s[<C-R>"]<ESC>
+vnoremap f{ s{<C-R>"}<ESC>
+vnoremap f" s"<C-R>""<ESC>
+vnoremap f' s'<C-R>"'<ESC>
+vnoremap f< s<<C-R>"><ESC>
 
 
 
