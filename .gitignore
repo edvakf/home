@@ -20,5 +20,3 @@
 desktop.ini
 Thumbs.db
 /bin/*.exe
-/bin/class-dump
-/bin/class-dump-x
