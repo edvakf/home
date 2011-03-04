@@ -106,14 +106,17 @@ vnoremap f< s<<C-R>"><ESC>
 
 " actionscript http://www.vim.org/scripts/script.php?script_id=3275
 au Bufread,BufNewFile *.as set filetype=actionscript
-
-
+" Python
+autocmd BufEnter SConstruct set filetype=python
+autocmd BufEnter SConscript set filetype=python
 "yorick highlighted as cpp
 au Bufenter *.i set filetype=cpp
 " .lyx is highlighted as .tex
 au Bufenter *.lyx set filetype=tex
 " ~/.crontab is a crontab file (crontab ~/.crontab)
 au Bufenter .crontab set filetype=crontab
+
+
 
 " emacs like editing
 inoremap <C-A>  <Home>
