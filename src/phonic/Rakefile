@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+
+require 'rubygems'
+require 'rake/extensiontask'
+require 'hoe'
+require 'pp'
+$root = File.dirname(__FILE__)
+$name = 'iv-phonic'
+$version = '0.1.7'
+
+directory "ext/include/iv"
+
+HOE = Hoe.spec $name do
+  developer('Constellation', 'utatane.tea@gmail.com')
+  self.version = $version
+  self.readme_file = 'README.rdoc'
+  self.history_file = 'ChangeLog'
+  self.extra_rdoc_files = FileList['*.rdoc']
+  self.extra_dev_deps << ['rake-compiler', '>= 0']
+  self.spec_extras = {
+    :extensions => ['ext/iv/phonic/extconf.rb']
+  }
+  self.summary = "iv / phonic : ECMAScript AST"
+  self.require_ruby_version '>= 1.9.1'
+end
+
+Rake::ExtensionTask.new('phonic', HOE.spec) do |ext|
+  ext.lib_dir = File.join('lib', 'iv')
+  ext.ext_dir = File.join('ext', 'iv', 'phonic')
+  ext.config_options << "--with-iv-include=#{File.join($root, 'ext', 'include')}"
+  ext.config_options << "--with-netlib-include=#{File.join($root, 'ext', 'iv', 'phonic', 'third_party', 'netlib_dtoa')}"
+  ext.config_options << "--with-v8-include=#{File.join($root, 'ext', 'iv', 'phonic', 'third_party', 'v8_dtoa')}"
+end
+
+#Rake::ExtensionTask.new('v8_dtoa', HOE.spec) do |ext|
+#  ext.lib_dir = File.join('lib', 'iv', 'phonic', 'third_party')
+#  ext.ext_dir = File.join('ext', 'iv', 'phonic', 'third_party', 'v8_dtoa')
+#  ext.config_options << "--with-iv-include=#{File.join($root, 'ext', 'include')}"
+#end
+#
+#Rake::ExtensionTask.new('netlib_dtoa', HOE.spec) do |ext|
+#  ext.lib_dir = File.join('lib', 'iv', 'phonic', 'third_party')
+#  ext.ext_dir = File.join('ext', 'iv', 'phonic', 'third_party', 'netlib_dtoa')
+#  ext.config_options << "--with-iv-include=#{File.join($root, 'ext', 'include')}"
+#end
+
+Rake::Task[:test].prerequisites << :compile
+
+task :checkout => ["ext/include/iv"] do |t|
+  list = [
+    ".autotest",
+    "Manifest.txt",
+    "README.rdoc",
+    "Rakefile",
+    "lib/iv/phonic/ast.rb",
+    "test/test_iv_phonic.rb"
+  ]
+  Dir.glob("../*.h") do |f|
+    path = File.join("ext", "include", "iv", File.basename(f))
+    list << path
+    cp f, File.expand_path(path)
+  end
+  mkdir_p File.join("ext", "iv", "phonic", "third_party", "netlib_dtoa")
+  Dir.glob("../third_party/netlib_dtoa/*") do |f|
+    path = File.join("ext", "iv", "phonic", "third_party", "netlib_dtoa", File.basename(f))
+    list << path
+    cp f, File.expand_path(path)
+  end
+  mkdir_p File.join("ext", "iv", "phonic", "third_party", "v8_dtoa")
+  Dir.glob("../third_party/v8_dtoa/*") do |f|
+    path = File.join("ext", "iv", "phonic", "third_party", "v8_dtoa", File.basename(f))
+    list << path
+    cp f, File.expand_path(path)
+  end
+  Dir.glob("ext/iv/phonic/*.*") do |f|
+    list << f
+  end
+  File.open("Manifest.txt", "w") do |f|
+    f.write(list.join("\n"))
+  end
+end
+
+task :push => :gem do |f|
+  system("gem push pkg/#{$name}-#{$version}.gem")
+end
+
+task :install => :gem do |f|
+  sh "gem install --local pkg/#{$name}-#{$version}.gem"
+end
+
+# vim: syntax=ruby

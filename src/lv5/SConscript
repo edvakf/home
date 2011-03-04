@@ -1,0 +1,25 @@
+import sys
+import os
+import glob
+from os.path import join, dirname, abspath, basename
+Import('context object_files root_dir')
+
+jscre = context.SConscript(
+  'third_party/jscre/SConscript',
+  variant_dir=join(root_dir, 'obj', 'third_party', 'jscre'),
+  duplicate=False,
+  exports="context"
+)
+conf = Configure(context.Clone())
+conf.CheckLib(library='boost_thread', language='cxx')
+conf.CheckLib('gc')
+env = conf.Finish()
+env.Append(
+    CCFLAGS=["-fno-strict-aliasing"],
+    CPPDEFINES=["__STDC_FORMAT_MACROS"]
+    )
+objs = [ x for x in Glob('*.cc') if basename(x.rstr()) != 'main.cc']
+lib = [env.StaticLibrary('lv5', [objs, object_files, jscre]), object_files, jscre]
+program = env.Program('lv5', ['main.cc', lib])
+libs = env['LIBS']
+Return('program', 'lib', 'libs')
