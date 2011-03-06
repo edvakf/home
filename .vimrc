@@ -203,3 +203,7 @@ if has('win32')
 endif
 
 
+" reopen this file with dos format
+function DOS()
+  edit ++ff=dos
+endfunction
