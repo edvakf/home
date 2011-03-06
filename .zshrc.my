@@ -258,9 +258,9 @@ if [ $CYGWIN ]; then
     echo "call \"%$batfile%vsvars32.bat\" >NUL:" >> $tmpfile
     echo "bash -c \"%*\"" >> $tmpfile
     cmd /c `cygpath -m "$tmpfile"` "$@"
-    status=$?
+    returnstatus=$?
     rm -f $tmpfile
-    return $status
+    return $returnstatus
   }
 
   function run_vs10()
@@ -268,15 +268,9 @@ if [ $CYGWIN ]; then
     run_with_bat VS100COMNTOOLS "$@"
   }
 
-  function cl()
-  {
-    run_vs10 cl "$@"
-  }
-
-  function nmake()
-  {
-    run_vs10 cl "$@"
-  }
+  alias cl="run_vs10 cl"
+  alias nmake="run_vs10 nmake"
+  alias rc="run_vs10 rc"
 fi
 
 
