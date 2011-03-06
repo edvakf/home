@@ -155,6 +155,19 @@ zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=31'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 
+#set window/tab title 
+#http://www.macosxhints.com/article.php?story=20060502160527780
+precmd() {
+  print -Pn "\e]0;%~/\a"
+}
+precmd() {
+}
+
+# ls after cd
+function chpwd() {
+  ls
+}
+
 #when using GNU screen, set window title as directory & command
 #http://shunirr.org/archives/104
 if [ $TERM = "screen" ]; then
@@ -174,17 +187,6 @@ if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 fpath=($HOME/.rvm/scripts/zsh/Completion $fpath)
 compdef _rvm rvm
 
-
-#set window/tab title 
-#http://www.macosxhints.com/article.php?story=20060502160527780
-precmd() {
-  print -Pn "\e]0;%~/\a"
-}
-
-# ls after cd
-function chpwd() {
-  ls
-}
 
 # can't move cursor in 'vi' under 'screen'
 #http://www.takulab.com/mac/mac-vim-configure/
