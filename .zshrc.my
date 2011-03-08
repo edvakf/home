@@ -32,6 +32,8 @@ if [ $CYGWIN ]; then
   # use MinGW gcc instead of cygwin gcc
   # http://www.sixnine.net/cygwin/translation/mingw-doc/mingwfaq.html
   export PATH=/cygdrive/c/MinGW/bin:$PATH
+
+  export PATH="$PATH:/cygdrive/c/Program Files/Java/jdk1.6.0_24/bin"
 fi
 
 export PATH=$HOME/bin:$PATH
@@ -159,8 +161,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 #http://www.macosxhints.com/article.php?story=20060502160527780
 precmd() {
   print -Pn "\e]0;%~/\a"
-}
-precmd() {
 }
 
 # ls after cd

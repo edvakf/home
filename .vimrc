@@ -169,17 +169,17 @@ let html_use_css = 1
 let use_xhtml = 1
 
 " copy to clipboard
-if has("unix") && match(system("uname"),'Darwin') != -1
-  " http://www.mail-archive.com/vim-latex-devel@lists.sourceforge.net/msg00773.html
-  nnoremap sc :call system("pbcopy", @")<CR>
-  nnoremap sp :r! pbpaste<CR>
-elseif has('win32unix') " cygwin
+if has('win32unix') " cygwin
   " getclip/putclip is horrible with unicode, so use /dev/clipboard (~/bin/{get|put}clip.rb)
   nnoremap sc :call system("putclip", @")<CR>
   nnoremap sp :r! getclip<CR>
 elseif has('gui') " gvim
   nnoremap sc :let @* = @"<CR>
   nnoremap sp "+gP
+elseif has("unix") && match(system("uname"),'Darwin') != -1
+  " http://www.mail-archive.com/vim-latex-devel@lists.sourceforge.net/msg00773.html
+  nnoremap sc :call system("pbcopy", @")<CR>
+  nnoremap sp :r! pbpaste<CR>
 endif
 
 
