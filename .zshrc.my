@@ -79,6 +79,11 @@ alias -g L='| less'
 
 alias wget='wget --no-check-certificate'
 
+# lv Shift_JIS, EUC-JP -> UTF-8
+alias lvs='lv -Is -Ou8'
+alias lve='lv -Ie -Ou8'
+
+
 if [ $CYGWIN ]; then
   alias open='cygstart'
 #  alias putclip='$HOME/bin/putclip.sh'
