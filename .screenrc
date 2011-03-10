@@ -1,0 +1,17 @@
+escape ^o^o
+# copy/paste mode
+bind ^i copy
+bind ^j paste .
+# to the window I just switched from
+bind ^s other
+
+shell /bin/zsh
+
+startup_message off
+defscrollback 4096
+vbell off
+
+hardstatus alwayslastline "%`%-w%{=u d}%n %t%{-}%+w"
+
+# use "alternate screen" for full screen programs like less etc.
+altscreen on

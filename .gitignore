@@ -9,6 +9,7 @@
 !/.zshenv
 !/.vim
 !/.vimrc
+!/.screenrc
 !/.gitignore
 !/.gitconfig
 !/.gitmodules
