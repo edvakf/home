@@ -94,8 +94,6 @@ if [ $CYGWIN ]; then
 fi
 
 if [ $MACOSX ]; then
-  alias -g C='| pbcopy'
-
   #alias vi='/usr/bin/vim'
   function vi() { # 'vi' is 'ls' if argv[1] is a directory
     if [[ -d $1 ]]
