@@ -210,3 +210,9 @@ endif
 function DOS()
   edit ++ff=dos
 endfunction
+
+
+" enable mouse scroll http://bitheap.org/mouseterm/
+if has("mouse")
+    set mouse=a
+endif
