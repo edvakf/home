@@ -83,9 +83,17 @@ alias wget='wget --no-check-certificate'
 alias lvs='lv -Is -Ou8'
 alias lve='lv -Ie -Ou8'
 
+alias ZSHRC='vi $HOME/.zshrc.my'
+alias VIMRC='vi $HOME/.vimrc'
+
+# without this, git log, git diff, etc. don't use alternate screen
+alias git='LESS=FRS git'
+
 
 if [ $CYGWIN ]; then
   alias open='cygstart'
+  # completion for unknown command is very slow on cygwin
+  compdef _ls open
 #  alias putclip='$HOME/bin/putclip.sh'
 #  alias getclip='$HOME/bin/getclip.sh'
 
