@@ -1,19 +1,16 @@
-set encoding=utf-8
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
-set fileformats=unix,dos
-
 " Detect Mac OS X once here
 " I'm checking !has('win32unix') because calling "system" can be very slow on cygwin
 let g:hasMacOSX = !has('win32unix') && (has('unix') && match(system("uname"),'Darwin') != -1)
-
-" backspace for <LF> etc.
-set backspace=indent,eol,start
 
 " don't append LF at the end of file
 " http://d.hatena.ne.jp/odz/20070111/1168558681
 " this turns off expandtab, so bring it before that
 set binary
 set noendofline
+
+set encoding=utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileformats=unix,dos
 
 set tabstop=2
 set shiftwidth=2
@@ -23,15 +20,18 @@ set nocompatible
 set smarttab
 "set copyindent
 set preserveindent
+
 syntax on
 filetype on
 filetype indent on
 filetype plugin on
 
-" detectindent http://www.vim.org/scripts/script.php?script_id=1171
-let g:detectindent_preferred_expandtab = 1
-let g:detectindent_preferred_indent = 2
-autocmd BufReadPost * :DetectIndent
+" backspace for <LF> etc.
+set backspace=indent,eol,start
+
+"http://www.his.kanazawa-it.ac.jp/~idurumi/linux/vim/vimrc07.html
+set ruler
+set showcmd
 
 " http://d.hatena.ne.jp/studio-m/20080117/1200552387
 set listchars=tab:\|_,eol:.,extends:$
@@ -114,20 +114,6 @@ vnoremap f< s<<C-R>"><ESC>
 
 
 
-" actionscript http://www.vim.org/scripts/script.php?script_id=3275
-au Bufread,BufNewFile *.as set filetype=actionscript
-" Python
-autocmd BufEnter SConstruct set filetype=python
-autocmd BufEnter SConscript set filetype=python
-"yorick highlighted as cpp
-au Bufenter *.i set filetype=cpp
-" .lyx is highlighted as .tex
-au Bufenter *.lyx set filetype=tex
-" ~/.crontab is a crontab file (crontab ~/.crontab)
-au Bufenter .crontab set filetype=crontab
-
-
-
 " emacs like editing
 inoremap <C-A>  <Home>
 inoremap <C-E>  <End>
@@ -139,9 +125,6 @@ inoremap <C-D>  <Delete>
 inoremap <C-K>  <Esc>Da
 inoremap <C-Y>  <Esc>pa
 
-"http://www.his.kanazawa-it.ac.jp/~idurumi/linux/vim/vimrc07.html
-set ruler
-set showcmd
 
 
 
@@ -205,10 +188,6 @@ if has("gui_running")
   set lines=40 columns=120
 endif
 
-" disable bell
-"":set visualbell t_vb=
-autocmd VimEnter * set vb t_vb=""
-
 " turn off ime in insert mode by default
 if has('win32')
   set iminsert=0
@@ -233,3 +212,25 @@ if has("mouse")
 endif
 
 
+" detectindent http://www.vim.org/scripts/script.php?script_id=1171
+let g:detectindent_preferred_expandtab = 1
+let g:detectindent_preferred_indent = 2
+autocmd BufReadPost * :DetectIndent
+
+
+" disable bell
+"":set visualbell t_vb=
+autocmd VimEnter * set vb t_vb=""
+
+
+" actionscript http://www.vim.org/scripts/script.php?script_id=3275
+au Bufread,BufNewFile *.as set filetype=actionscript
+" Python
+autocmd BufEnter SConstruct set filetype=python
+autocmd BufEnter SConscript set filetype=python
+"yorick highlighted as cpp
+au Bufenter *.i set filetype=cpp
+" .lyx is highlighted as .tex
+au Bufenter *.lyx set filetype=tex
+" ~/.crontab is a crontab file (crontab ~/.crontab)
+au Bufenter .crontab set filetype=crontab
