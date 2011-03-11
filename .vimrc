@@ -27,6 +27,11 @@ filetype on
 filetype indent on
 filetype plugin on
 
+" detectindent http://www.vim.org/scripts/script.php?script_id=1171
+let g:detectindent_preferred_expandtab = 1
+let g:detectindent_preferred_indent = 2
+autocmd BufReadPost * :DetectIndent
+
 " http://d.hatena.ne.jp/studio-m/20080117/1200552387
 set listchars=tab:\|_,eol:.,extends:$
 set list
