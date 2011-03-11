@@ -70,19 +70,6 @@ nnoremap Y y$
 " http://vim.g.hatena.ne.jp/ka-nacht/20081204/1228383305
 inoremap <C-l> <Esc>
 
-" save when escaping insert mode
-" http://mono.kmc.gr.jp/~yhara/d/?date=20090624#p01
-" http://vim.g.hatena.ne.jp/ka-nacht/20090625/1245857600
-if !has('win32')
-  autocmd InsertLeave * wall
-endif
-
-" http://d.hatena.ne.jp/dayflower/20081208/1228725403
-" one liner comment will not be not auto-indented
-if has("autocmd")
-    autocmd FileType * let &l:comments =
-        \join(filter(split(&l:comments, ','), 'v:val =~ "^[sme]"'), ',')
-endif
 
 noremap j gj
 noremap k gk
@@ -210,6 +197,22 @@ if has("mouse")
     vmap <LeftRelease> yscgv
   endif
 endif
+
+
+" save when escaping insert mode
+" http://mono.kmc.gr.jp/~yhara/d/?date=20090624#p01
+" http://vim.g.hatena.ne.jp/ka-nacht/20090625/1245857600
+" also save when there has not been any action for some time
+if !has('win32')
+  autocmd InsertLeave * wall
+  set autowrite
+  autocmd CursorHold * wall
+endif
+
+" http://d.hatena.ne.jp/dayflower/20081208/1228725403
+" one liner comment will not be not auto-indented
+autocmd FileType * let &l:comments =
+    \join(filter(split(&l:comments, ','), 'v:val =~ "^[sme]"'), ',')
 
 
 " detectindent http://www.vim.org/scripts/script.php?script_id=1171
