@@ -1,6 +1,10 @@
 set fileencodings=utf-8,cp932
 set fileformats=unix,dos
 
+" Detect Mac OS X once here
+" I'm checking !has('win32unix') because calling "system" can be very slow on cygwin
+let g:hasMacOSX = !has('win32unix') && (has('unix') && match(system("uname"),'Darwin') != -1)
+
 " backspace for <LF> etc.
 set backspace=indent,eol,start
 
@@ -176,7 +180,7 @@ if has('win32unix') " cygwin
 elseif has('gui') " gvim
   nnoremap sc :let @* = @"<CR>
   nnoremap sp "+gP
-elseif has("unix") && match(system("uname"),'Darwin') != -1
+elseif hasMacOSX
   " http://www.mail-archive.com/vim-latex-devel@lists.sourceforge.net/msg00773.html
   nnoremap sc :call system("pbcopy", @")<CR>
   nnoremap sp :r! pbpaste<CR>
@@ -214,5 +218,12 @@ endfunction
 
 " enable mouse scroll http://bitheap.org/mouseterm/
 if has("mouse")
-    set mouse=a
+  set mouse=a
+
+  " if sc -> copy to clipboard is on, then copy selection to clipboard at left mouse button up
+  if has('win32unix') || has('gui') || hasMacOSX
+    vmap <LeftRelease> yscgv
+  endif
 endif
+
+
