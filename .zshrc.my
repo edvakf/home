@@ -99,6 +99,9 @@ if [ $CYGWIN ]; then
 
   # http://d.hatena.ne.jp/runfor/20080927/1222536300
   alias lv='TERM=cygwin; lv'
+
+  alias ruby192="/cygdrive/c/Ruby192/bin/ruby"
+  alias irb192="/cygdrive/c/Ruby192/bin/irb"
 fi
 
 if [ $MACOSX ]; then
