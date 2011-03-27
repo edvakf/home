@@ -5,3 +5,8 @@
 [user]
 	name = Atsushit Takayama
 	email = taka.atsushi@gmail.com
+[alias]
+	co = checkout
+	ci = commit
+	di = diff
+	st = status
