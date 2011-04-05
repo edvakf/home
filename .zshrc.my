@@ -31,7 +31,7 @@ fi
 if [ $CYGWIN ]; then
   # use MinGW gcc instead of cygwin gcc
   # http://www.sixnine.net/cygwin/translation/mingw-doc/mingwfaq.html
-  export PATH=/cygdrive/c/MinGW/bin:$PATH
+  #export PATH=/cygdrive/c/MinGW/bin:$PATH
 
   export PATH="$PATH:/cygdrive/c/Program Files/Java/jdk1.6.0_24/bin"
 fi
@@ -87,7 +87,7 @@ alias ZSHRC='vi $HOME/.zshrc.my'
 alias VIMRC='vi $HOME/.vimrc'
 
 # without this, git log, git diff, etc. don't use alternate screen
-alias git='LESS=FRS git'
+#alias git='LESS=FRS git'
 
 
 if [ $CYGWIN ]; then
@@ -153,6 +153,14 @@ function v(){
     fi
   fi
 }
+
+
+# mkcd = mkdir + cd
+function mkcd(){
+  eval dir=\$\{$#\}
+  mkdir $@ && cd $dir
+}
+
 
 ## other
 
