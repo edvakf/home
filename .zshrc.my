@@ -141,7 +141,7 @@ function v(){
     vi $@
   else
     newvi='yes'
-    jobs | sed 's/.*suspended  //' | while read cmd; do
+    jobs | sed 's/.*suspended\( (signal)\)\?  //' | while read cmd; do
       if [ "$cmd" = "v $@" ]; then
         newvi=''
         fg %$cmd
