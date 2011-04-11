@@ -6,29 +6,18 @@ if [[ $# -lt 1 ]]; then
 fi
 
 zip=$1
-path=/tmp/unzip$RANDOM$RANDOM
-
-echo "unzip in $path"
-unzip $zip -d $path
-
 dir=${zip%.*}
-mkdir $dir
 
-if [[ $? -ne 0 ]]; then
-  exit 1
-fi
+unzip $zip -d $dir
 
-if [[ `ls -1 $path | wc -l` -eq 1 ]]; then
-  for file in `ls $path`; do # only one file anyway
-    if [[ -d $file ]]; then
-      echo "mv $path/$file/* $dir"
-      mv $path/$file/* $dir
-    else
-      echo "mv $path/$file $dir"
-      mv $path/$file $dir
+if [[ `ls -1 $dir | wc -l` -eq 1 ]]; then
+  for file in `ls $dir`; do # only one file anyway
+    if [[ -d $dir/$file ]]; then
+      echo "move up directory"
+      rnd=$dir/$RANDOM$RANDOM
+      mv $dir/$file $rnd
+      mv $rnd/* $dir
+      rm -r $rnd
     fi
   done
-else
-  echo "mv $path/* $dir"
-  mv $path/* $dir
 fi
