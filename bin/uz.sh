@@ -14,10 +14,10 @@ if [[ `ls -1 $dir | wc -l` -eq 1 ]]; then
   for file in `ls $dir`; do # only one file anyway
     if [[ -d $dir/$file ]]; then
       echo "move up directory"
-      rnd=$dir/$RANDOM$RANDOM
-      mv $dir/$file $rnd
-      mv $rnd/* $dir
-      rm -r $rnd
+      tmp=$dir/temporary_unzip_directory
+      mv $dir/$file $tmp
+      mv $tmp/* $dir
+      rm -r $tmp
     fi
   done
 fi
