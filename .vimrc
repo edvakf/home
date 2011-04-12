@@ -64,6 +64,13 @@ command! W w
 command! WQ wq
 command! Wq wq
 
+" increase history cache, <C-p> to backword search etc.
+set history=1000
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <Up> <C-p>
+cnoremap <Down> <C-n>
+
 " ; to : (no need to press shift)
 noremap ; :
 
