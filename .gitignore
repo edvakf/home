@@ -13,10 +13,8 @@
 !/.gitignore
 !/.gitconfig
 !/.gitmodules
-!/bin/
 
 /.vim/.netrwhist
 .DS_Store
 desktop.ini
 Thumbs.db
-/bin/*.exe
