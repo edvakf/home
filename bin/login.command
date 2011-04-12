@@ -1,1 +1,0 @@
-/Users/atsushi/Programming/bin/login.command
