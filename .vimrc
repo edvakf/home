@@ -2,6 +2,7 @@
 " I'm checking !has('win32unix') because calling "system" can be very slow on cygwin
 let g:hasMacOSX = !has('win32unix') && (has('unix') && match(system("uname"),'Darwin') != -1)
 
+let mapleader = ","
 
 " vim-pathogen
 call pathogen#runtime_append_all_bundles()
