@@ -196,9 +196,10 @@ endif
 
 
 " reopen this file with dos format
-function DOS()
+function <SID>DOS()
   edit ++ff=dos
 endfunction
+command! DOS call <SID>DOS()
 
 
 " enable mouse scroll http://bitheap.org/mouseterm/
