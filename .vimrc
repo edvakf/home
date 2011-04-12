@@ -2,6 +2,11 @@
 " I'm checking !has('win32unix') because calling "system" can be very slow on cygwin
 let g:hasMacOSX = !has('win32unix') && (has('unix') && match(system("uname"),'Darwin') != -1)
 
+
+" vim-pathogen
+call pathogen#runtime_append_all_bundles()
+
+
 " don't append LF at the end of file
 " http://d.hatena.ne.jp/odz/20070111/1168558681
 " this turns off expandtab, so bring it before that
