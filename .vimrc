@@ -67,8 +67,6 @@ command! Wq wq
 
 " increase history cache, <C-p> to backword search etc.
 set history=1000
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
 cnoremap <Up> <C-p>
 cnoremap <Down> <C-n>
 
@@ -116,13 +114,13 @@ vnoremap f< s<<C-R>"><ESC>
 
 
 " emacs like editing
-inoremap <C-A>  <Home>
-inoremap <C-E>  <End>
-inoremap <C-B>  <Left>
-inoremap <C-F>  <Right>
-inoremap <C-N>  <Down>
-inoremap <C-P>  <UP>
-inoremap <C-D>  <Delete>
+noremap! <C-A>  <Home>
+noremap! <C-E>  <End>
+noremap! <C-B>  <Left>
+noremap! <C-F>  <Right>
+noremap! <C-N>  <Down>
+noremap! <C-P>  <UP>
+noremap! <C-D>  <Delete>
 inoremap <C-K>  <Esc>Da
 inoremap <C-Y>  <Esc>pa
 
