@@ -80,7 +80,7 @@ nnoremap Y y$
 
 " escape from insert mode by <C-l>
 " http://vim.g.hatena.ne.jp/ka-nacht/20081204/1228383305
-inoremap <C-l> <Esc>
+noremap! <C-l> <Esc>
 vnoremap <C-l> <Esc>
 
 
