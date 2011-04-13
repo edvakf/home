@@ -93,9 +93,9 @@ inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 inoremap ( ()<LEFT>
 inoremap " ""<LEFT>
-inoremap <expr> ' CompleteSingleQuote()
+inoremap <expr> ' <SID>CompleteSingleQuote()
 
-function CompleteSingleQuote()
+function! <SID>CompleteSingleQuote()
   if getline(".")[col(".") - 2] =~ "[a-zA-Z]"
     return "'"
   else
@@ -195,7 +195,7 @@ endif
 
 
 " reopen this file with dos format
-function <SID>DOS()
+function! <SID>DOS()
   edit ++ff=dos
 endfunction
 command! DOS call <SID>DOS()
