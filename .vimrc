@@ -125,6 +125,22 @@ inoremap <C-K>  <Esc>Da
 inoremap <C-Y>  <Esc>pa
 
 
+" window/tab related
+set splitright
+set splitbelow
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-w>w :vsplit<CR>
+
+nnoremap . <C-w>>
+nnoremap , <C-w><
+
+nnoremap <C-n> gT
+nnoremap <C-p> gt
+
 
 
 if !has('win32')
