@@ -247,6 +247,10 @@ let g:detectindent_preferred_indent = 2
 autocmd BufReadPost * :DetectIndent
 
 
+" https://github.com/jiangmiao/simple-javascript-indenter
+let g:SimpleJsIndenter_BriefMode = 1
+
+
 " disable bell
 "":set visualbell t_vb=
 autocmd VimEnter * set vb t_vb=""
