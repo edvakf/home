@@ -135,8 +135,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-w>w :vsplit<CR>
 
-nnoremap . <C-w>>
-nnoremap , <C-w><
+nnoremap ] <C-w>>
+nnoremap [ <C-w><
 
 nnoremap <C-n> gT
 nnoremap <C-p> gt
