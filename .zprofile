@@ -5,6 +5,7 @@
 # http://www.snowelm.com/~t/doc/tips/20030625.ja.html
 if [ $CYGWIN ]; then
 
+  # share ssh-keygen information
   echo -n "ssh-agent: "
   source ~/.ssh-agent-info
   /usr/bin/ssh-add -l >&/dev/null
@@ -19,5 +20,8 @@ if [ $CYGWIN ]; then
   else
     /usr/bin/ssh-add
   fi
+
+  # remove contents of /tmp directory if too old
+  find /tmp/* -mtime +7 -delete
 
 fi
