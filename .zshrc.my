@@ -2,8 +2,8 @@
 
 # compacked complete list display
 #
-[[ $OSTYPE = "darwin10.0" ]] && MACOSX='yes' || MACOSX=''
-[[ $OSTYPE = "cygwin" ]] && CYGWIN='yes' || CYGWIN=''
+[[ $OSTYPE = "darwin10.0" ]] && [[ $MACOSX = '' ]] && MACOSX='yes'
+[[ $OSTYPE = "cygwin" ]] && [[ $CYGWIN = '' ]] && CYGWIN='yes'
 
 # completion list item width equal to 'ls' item width
 [ $MACOSX ] && setopt no_list_packed || setopt list_packed
