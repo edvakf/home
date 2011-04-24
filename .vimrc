@@ -27,6 +27,11 @@ set smarttab
 "set copyindent
 set preserveindent
 
+" always show statusline, customize statusline
+" default is %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set laststatus=2
+set statusline=%<%f\ %h%m%r%=%-7.(%l,%c%V%)\ %y%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.'][et,sw,ts='.&et.','.&sw.','.&ts.']'}
+
 syntax on
 filetype on
 filetype indent on
