@@ -53,6 +53,12 @@ set list
 colorscheme elflord
 hi Function     term=bold   ctermfg=Brown guifg=Brown
 
+" completion popup color
+hi Pmenu ctermbg=1
+hi PmenuSel ctermbg=4
+hi PmenuSbar ctermbg=2
+hi PmenuThumb ctermbg=3
+
 "keep backup files
 "http://www.redout.net/data/vi.html
 "set backup
