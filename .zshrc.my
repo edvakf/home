@@ -69,6 +69,8 @@ alias ll='ls -l'
 alias lh='ls -lh'
 alias la='ls -a'
 
+alias g='git'
+
 # global alias - works not only as the first word of command
 alias -g ...='../..'
 alias -g ....='../../..'
