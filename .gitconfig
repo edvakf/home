@@ -10,3 +10,5 @@
 	ci = commit
 	di = diff
 	st = status
+	man = help
+	gr = grep

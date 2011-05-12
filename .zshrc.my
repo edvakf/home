@@ -34,6 +34,9 @@ if [ $CYGWIN ]; then
   #export PATH=/cygdrive/c/MinGW/bin:$PATH
 
   export PATH="$PATH:/cygdrive/c/Program Files/Java/jdk1.6.0_24/bin"
+
+  export FLEX_HOME=$HOME/Downloads/flex_sdk_4.5.0.20967
+  export PATH="$PATH:$FLEX_HOME/bin"
 fi
 
 export PATH=$HOME/bin:$PATH
@@ -65,6 +68,8 @@ fi
 alias ll='ls -l'
 alias lh='ls -lh'
 alias la='ls -a'
+
+alias g='git'
 
 # global alias - works not only as the first word of command
 alias -g ...='../..'
