@@ -33,10 +33,8 @@ if [ $CYGWIN ]; then
   # http://www.sixnine.net/cygwin/translation/mingw-doc/mingwfaq.html
   #export PATH=/cygdrive/c/MinGW/bin:$PATH
 
-  export PATH="$PATH:/cygdrive/c/Program Files/Java/jdk1.6.0_24/bin"
-
-  export FLEX_HOME=$HOME/Downloads/flex_sdk_4.5.0.20967
-  export PATH="$PATH:$FLEX_HOME/bin"
+  export PATH="$PATH:$HOME/Downloads/flex_sdk_4.5.0.20967/bin"
+  export FLEX_HOME="C:/Users/atsushi/Downloads/flex_sdk_4.5.0.20967"
 fi
 
 export PATH=$HOME/bin:$PATH
