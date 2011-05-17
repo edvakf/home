@@ -122,7 +122,8 @@ vnoremap f" s"<C-R>""<ESC>
 vnoremap f' s'<C-R>"'<ESC>
 vnoremap f< s<<C-R>"><ESC>
 
-
+" search selection
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 
 " emacs like editing
 noremap! <C-A>  <Home>
