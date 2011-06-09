@@ -1,6 +1,6 @@
 " Detect Mac OS X once here
 " I'm checking !has('win32unix') because calling "system" can be very slow on cygwin
-let g:hasMacOSX = !has('win32unix') && (has('unix') && match(system("uname"),'Darwin') != -1)
+let g:hasMacOSX = has("macunix") || (!has('win32unix') && (has('unix') && match(system("uname"),'Darwin') != -1))
 
 let mapleader = ","
 
