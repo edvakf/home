@@ -37,7 +37,7 @@ if [[ $OSTYPE = "cygwin" ]]; then
   #mkdir -p /tmp
 
   # delete sockets first, -empty deletes regular files and empty directories
-  find /tmp -mindepth 1 -atime +7 -type s -delete
-  find /tmp -mindepth 1 -atime +7 -empty -delete
+  find /tmp -mindepth 1 -atime +30 -type s -delete
+  find /tmp -mindepth 1 -atime +30 -empty -delete
 
 fi
