@@ -40,4 +40,8 @@ if [[ $OSTYPE = "cygwin" ]]; then
   find /tmp -mindepth 1 -atime +30 -type s -delete
   find /tmp -mindepth 1 -atime +30 -empty -delete
 
+
+  # http://lists.gnu.org/archive/html/bug-gettext/2011-09/msg00006.html
+  export LC_ALL="C.UTF-8"
+  export LANG="C.UTF-8"
 fi
