@@ -264,6 +264,15 @@ autocmd BufReadPost * :DetectIndent
 let g:SimpleJsIndenter_BriefMode = 1
 
 
+" https://github.com/nathanaelkane/vim-indent-guides
+" turn on indent-guide by <Leader>ig
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=Black   ctermbg=Black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=DarkGray ctermbg=White
+
+
 " disable bell
 "":set visualbell t_vb=
 autocmd VimEnter * set vb t_vb=""
