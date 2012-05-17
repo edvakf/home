@@ -3,7 +3,7 @@
 [core]
 	autocrlf = input
 [user]
-	name = Atsushit Takayama
+	name = Atsushi Takayama
 	email = taka.atsushi@gmail.com
 [alias]
 	co = checkout
