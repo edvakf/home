@@ -15,3 +15,5 @@ hardstatus alwayslastline "%`%-w%{=u d}%n %t%{-}%+w"
 
 # use "alternate screen" for full screen programs like less etc.
 altscreen on
+
+autodetach on
