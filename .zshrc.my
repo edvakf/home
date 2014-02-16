@@ -2,7 +2,7 @@
 
 # compacked complete list display
 #
-[[ $OSTYPE = "darwin10.0" || $OSTYPE = "darwin11.0" ]] && [[ $MACOSX = '' ]] && MACOSX='yes'
+[[ $OSTYPE = "darwin10.0" || $OSTYPE = "darwin11.0" || $OSTYPE = "darwin12.0" || $OSTYPE = "darwin13.0" ]] && [[ $MACOSX = '' ]] && MACOSX='yes'
 [[ $OSTYPE = "cygwin" ]] && [[ $CYGWIN = '' ]] && CYGWIN='yes'
 
 # completion list item width equal to 'ls' item width
@@ -10,56 +10,17 @@
 
 ## paths
 if [ $MACOSX ]; then
-  # for Google App Engine Oil
-  export GAEO_HOME=$HOME/Programming/gaeo
-  export GAEO_BIN=$GAEO_HOME/bin
-
-  #path to macports & fink binary
-  #export PATH=/sw/bin:$PATH
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export PATH=$PATH:/usr/local/bin
-  export PATH=$PATH:$GAEO_HOME/bin
-
-  #edp python
-  export PATH=/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
-
-  #export MANPATH=/sw/share/man:$MANPATH
-  export MANPATH=/usr/local/git/man:$MANPATH
-  export MANPATH=/opt/local/man:$MANPATH
-fi
-
-if [ $CYGWIN ]; then
-  # use MinGW gcc instead of cygwin gcc
-  # http://www.sixnine.net/cygwin/translation/mingw-doc/mingwfaq.html
-  #export PATH=/cygdrive/c/MinGW/bin:$PATH
-
-  export PATH="$PATH:$HOME/Downloads/flex_sdk_4.5.0.20967/bin"
-  export FLEX_HOME="C:/Users/atsushi/Downloads/flex_sdk_4.5.0.20967"
 fi
 
 export PATH=$HOME/bin:$PATH
 
-
-## completion
-compdef _ls node
+export LC_ALL=en_US.UTF-8
 
 
 ##aliases
 if [ $MACOSX ]; then
   alias ls='ls -G'
-elif [ $CYGWIN ]; then
-  #cygwin stat is very slow, so don't show color if there are more than 150 files
-  function ls_moderate() {
-    num=`command ls -1 "$@" 2> /dev/null | wc -l`
-    if [[ $num -gt 150 ]]; then
-      # native
-      command ls "$@"
-    else
-      # colored
-      command ls --color "$@"
-    fi
-  }
-  alias ls='ls_moderate'
 else
   alias ls='ls --color'
 fi
@@ -68,6 +29,8 @@ alias lh='ls -lh'
 alias la='ls -a'
 
 alias g='git'
+alias gs='git status'
+alias s='screen'
 
 # global alias - works not only as the first word of command
 alias -g ...='../..'
@@ -80,82 +43,22 @@ alias cd-='cd -'
 alias -g G='| grep'
 alias -g L='| less'
 
-alias wget='wget --no-check-certificate'
-
-# lv Shift_JIS, EUC-JP -> UTF-8
-alias lvs='lv -Is -Ou8'
-alias lve='lv -Ie -Ou8'
-
-alias ZSHRC='vi $HOME/.zshrc.my'
-alias VIMRC='vi $HOME/.vimrc'
-
 # without this, git log, git diff, etc. don't use alternate screen
 #alias git='LESS=FRS git'
 
 
-if [ $CYGWIN ]; then
-  alias open='cygstart'
-  # completion for unknown command is very slow on cygwin
-  compdef _ls open
-#  alias putclip='$HOME/bin/putclip.sh'
-#  alias getclip='$HOME/bin/getclip.sh'
-
-  # http://d.hatena.ne.jp/runfor/20080927/1222536300
-  alias lv='TERM=cygwin; lv'
-
-  alias ruby192="/cygdrive/c/Ruby192/bin/ruby"
-  alias irb192="/cygdrive/c/Ruby192/bin/irb"
-fi
-
 if [ $MACOSX ]; then
-  #alias vi='/usr/bin/vim'
-  function vi() { # 'vi' is 'ls' if argv[1] is a directory
-    if [[ -d $1 ]]
-    then
-      ls $1
-    else
-      /usr/bin/vim $@
-    fi
-  }
-  alias vim='/Users/atsushi/bin/mvim'
-  alias vless='/usr/share/vim/vim72/macros/less.sh -c "set nolist"'
-  alias vl='vless'
-
-  alias diff='/opt/local/bin/colordiff'
-
-  alias Pfirefox="/Applications/Firefox.app/Contents/MacOS/firefox-bin -P"
-  alias anotheropera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir another"
-  alias cleanopera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir clean"
-  alias japaneseopera="/Applications/Opera.app/Contents/MacOS/Opera -personaldir japanese"
-
   alias pbcopy="__CF_USER_TEXT_ENCODING=0x$(printf %x $(id -u)):0x08000100:14 pbcopy"
-
   alias ql='qlmanage -p "$@" >& /dev/null'
-  alias man='TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man'
-  alias kill="kill -9"
-  alias yck="rlwrap -c yorick"
+  alias diff='colordiff'
+
+  source ~/.phpbrew/bashrc
+
+  [ $MACOSX ] && eval "$(rbenv init -)"
 fi
 
-
-# when "v" is used instead of "vi", and if the file is already opened by another "v" process, 
-# then reuse that process
-function v(){
-  if [ $# -ne 1 ]; then
-    vi $@
-  else
-    newvi='yes'
-    jobs | sed 's/.*suspended\( (signal)\)\?  //' | while read cmd; do
-      if [ "$cmd" = "v $@" ]; then
-        newvi=''
-        fg %$cmd
-        break
-      fi
-    done
-    if [ $newvi ]; then
-      vi "$@"
-    fi
-  fi
-}
+# http://nion.modprobe.de/blog/archives/569-colored-manpages.html
+alias man='TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man'
 
 
 # mkcd = mkdir + cd
@@ -184,37 +87,34 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 #set window/tab title 
 #http://www.macosxhints.com/article.php?story=20060502160527780
-precmd() {
+precmd_set_tab_title() {
   print -Pn "\e]0;%~/\a"
 }
+precmd_functions=($precmd_functions precmd_set_tab_title)
 
 # ls after cd
-function chpwd() {
+function chpwd_ls() {
   ls
 }
+chpwd_functions=($chpwd_functions chpwd_ls)
 
 #when using GNU screen, set window title as directory & command
 #http://shunirr.org/archives/104
 if [ $TERM = "screen" ]; then
-   precmd () {
-#      screen -X title $(basename $(print -P "%~"))
-      screen -X title $(basename $(pwd)) 
-   }
-   preexec () {
-      screen -X eval "title '$1'"
-   } 
+  precmd_set_screen_title () {
+    screen -X title $(basename $(pwd))
+  }
+  precmd_functions=($precmd_functions precmd_set_screen_title)
+
+  preexec_set_screen_title () {
+     screen -X title "$1"
+  }
+  preexec_functions=($preexec_functions preexec_set_screen_title)
 fi
 
 
-# rvm
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
-# rvm completion
-fpath=($HOME/.rvm/scripts/zsh/Completion $fpath)
-compdef _rvm rvm
-
-
-# can't move cursor in 'vi' under 'screen'
-#http://www.takulab.com/mac/mac-vim-configure/
+## can't move cursor in 'vi' under 'screen'
+##http://www.takulab.com/mac/mac-vim-configure/
 if [ $TERM = "screen" ]; then
   if [ $MAC ]; then
     export TERM=dtterm
@@ -222,6 +122,7 @@ if [ $TERM = "screen" ]; then
 fi
 
 
+# parens ()
 function insert_parens() {
   LBUFFER+="()"
   zle backward-char
@@ -229,6 +130,17 @@ function insert_parens() {
 zle -N insert-parens insert_parens
 bindkey "(" insert-parens
 
+function close_parens() {
+  if [[ $#RBUFFER != "" ]] && [[ $RBUFFER[1] = ")" ]]; then
+    zle forward-char
+  else
+    zle self-insert
+  fi
+}
+zle -N close-parens close_parens
+bindkey ")" close-parens
+
+# braces {}
 function insert_braces() {
   LBUFFER+="{}"
   zle backward-char
@@ -236,6 +148,17 @@ function insert_braces() {
 zle -N insert-braces insert_braces
 bindkey "{" insert-braces
 
+function close_braces() {
+  if [[ $RBUFFER[1] = "}" ]]; then
+    zle forward-char
+  else
+    zle self-insert
+  fi
+}
+zle -N close-braces close_braces
+bindkey "}" close-braces
+
+# brackets []
 function insert_brackets() {
   LBUFFER+="[]"
   zle backward-char
@@ -243,31 +166,51 @@ function insert_brackets() {
 zle -N insert-brackets insert_brackets
 bindkey "[" insert-brackets
 
-function insert_quotes() {
-  if [[ "${LBUFFER%[[:alpha:]]}" == "$LBUFFER" ]]; then
-    LBUFFER+="''"
-    zle backward-char
+function close_brackets() {
+  if [[ $RBUFFER[1] = ']' ]]; then
+    zle forward-char
   else
-    zle self-insert
+    LBUFFER+="]"
+  fi
+}
+zle -N close-brackets close_brackets
+bindkey "]" close-brackets
+
+# quotes ''
+function insert_quotes() {
+  if [[ $RBUFFER[1] = "'" ]]; then
+    zle forward-char
+  else
+    if [[ "${LBUFFER%[[:alpha:]]}" == "$LBUFFER" ]]; then # last of LBUFFER is not an alphabet
+      LBUFFER+="''"
+      zle backward-char
+    else
+      zle self-insert
+    fi
   fi
 }
 zle -N insert-quotes insert_quotes
 bindkey "'" insert-quotes
 
+# double quotes ""
 function insert_double_quotes() {
-  LBUFFER+='""'
-  zle backward-char
+  if [[ $RBUFFER[1] = '"' ]]; then
+    zle forward-char
+  else
+    LBUFFER+='""'
+    zle backward-char
+  fi
 }
 zle -N insert-double-quotes insert_double_quotes
 bindkey '"' insert-double-quotes
 
 
-#if [ -f "$HOME/.zsh/auto-fu.zsh" ]; then
-#  # auto-fu.zsh http://d.hatena.ne.jp/hchbaw/20100526/1274886125
-#  . $HOME/.zsh/auto-fu.zsh
-#  zle-line-init () {auto-fu-init;}
-#  zle -N zle-line-init
-#fi
+if [ -f "$HOME/.zsh/auto-fu.zsh" ]; then
+  # auto-fu.zsh http://d.hatena.ne.jp/hchbaw/20100526/1274886125
+  . $HOME/.zsh/auto-fu.zsh
+  zle-line-init () {auto-fu-init;}
+  zle -N zle-line-init
+fi
 
 
 # go backward in completion list
@@ -304,3 +247,72 @@ fi
 # http://subtech.g.hatena.ne.jp/secondlife/20110222/1298354852
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
+
+# Ctrl-rの履歴検索の逆順を使うために、端末のほうのCtrl-sを無効にする
+# http://www.jp-z.jp/changelog/2006-09-28-2.html
+stty stop undef
+
+
+# http://d.hatena.ne.jp/NeoCat/20120822/1345657535
+
+#右プロンプト
+# %F{～}は色指定、%fでリセット
+# %nはログインユーザ名、%~はカレントディレクトリ
+# "%(?..%F{red}-%?-)" は終了コードが0以外なら赤色で表示
+# "%1(v|%F{yellow}%1v%F{green} |)" の部分がVCS情報 (psvarの長さが1以上なら黄色で表示)
+RPROMPT="%(?..%F{red}-%?-)%F{green}[%1(v|%F{yellow}%1v%F{green} |)%n:%~]%f"
+
+# コマンドの実行直後に右プロンプトを消す
+# http://www.machu.jp/diary/20130114.html#p01
+setopt transient_rprompt
+
+#gitブランチ名表示
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '%c%u%b'
+zstyle ':vcs_info:git:*' actionformats '%c%u%b|%a'
+
+#git情報更新
+update_vcs_info() {
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+#カレントディレクトリ変更時/git関連コマンド実行時に情報更新
+chpwd_show_git_info() {
+  update_vcs_info
+}
+chpwd_functions=($chpwd_functions chpwd_show_git_info)
+precmd_show_git_info() {
+  _r=$?
+  case "${_cmd}" in
+    g*|git*|stg*) update_vcs_info ;;
+  esac
+  return $_r
+}
+precmd_functions=($precmd_functions precmd_show_git_info)
+
+# 補完候補をカーソルキーで選択できるようにする
+# http://kaworu.jpn.org/kaworu/2012-04-17-1.php
+zstyle ':completion:*:default' menu select=4
+
+
+# SSH ForwardAgentの設定で接続の切れたscreenにattachすると環境変数が変わってなくてFowardされないため
+# http://blog.s21g.com/articles/97
+if [ "$TERM" = "screen" ]; then
+  alias fixsshenv='eval `cat ~/.ssh/fix_ssh_env`'
+  #alias ssh='fixsshenv; ssh'
+  alias g='fixsshenv; git'
+else
+  export | grep '^SSH_' > ~/.ssh/fix_ssh_env
+fi
+
+
+show_buffer_stack() {
+  POSTDISPLAY="
+stack: $LBUFFER"
+  zle push-line
+}
+zle -N show_buffer_stack
+bindkey "^[q" show_buffer_stack
+

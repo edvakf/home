@@ -12,14 +12,14 @@ autoload colors
 colors
 case ${UID} in
 0)
-  PROMPT="%B%{${fg[green]}%}%/#%{${reset_color}%}%b "
+  PROMPT="%{${fg[yellow]}%}%T %B%{${fg[green]}%}%/#%{${reset_color}%}%b "
   PROMPT2="%B%{${fg[green]}%}%_#%{${reset_color}%}%b "
   SPROMPT="%B%{${fg[green]}%}Do you mean : %r ? [n,y,a,e]:%{${reset_color}%}%b "
   [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
     PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
   ;;
 *)
-  PROMPT="%{${fg[green]}%}%/%%%{${reset_color}%} "
+  PROMPT="%{${fg[yellow]}%}%T %{${fg[green]}%}%/%%%{${reset_color}%} "
   PROMPT2="%{${fg[green]}%}%_%%%{${reset_color}%} "
   SPROMPT="%{${fg[green]}%}Do you mean : %r ? [n,y,a,e]:%{${reset_color}%} "
   [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
@@ -77,7 +77,7 @@ setopt hist_ignore_space    # ignore line starting with a space
 #
 fpath=(~/.zsh/functions ${fpath})
 autoload -U compinit
-compinit
+compinit -u
 
 ## don't logout by Ctrl-D 
 setopt ignore_eof
