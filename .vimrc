@@ -15,8 +15,8 @@ call pathogen#runtime_append_all_bundles()
 "set noendofline
 
 set encoding=utf-8
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
-set fileformats=unix,dos
+set fileencodings=utf-8
+set fileformats=unix
 set ambiwidth=double
 
 set tabstop=2
@@ -46,7 +46,7 @@ set ruler
 set showcmd
 
 " http://d.hatena.ne.jp/studio-m/20080117/1200552387
-set listchars=tab:\|_,eol:.,extends:$
+set listchars=tab:\|_,trail:_,extends:$
 set list
 
 "change color scheme
@@ -54,11 +54,7 @@ set list
 colorscheme elflord
 hi Function     term=bold   ctermfg=Brown guifg=Brown
 
-" completion popup color
-hi Pmenu ctermbg=1
-hi PmenuSel ctermbg=4
-hi PmenuSbar ctermbg=2
-hi PmenuThumb ctermbg=3
+let g:neocomplcache_enable_at_startup = 1
 
 "keep backup files
 "http://www.redout.net/data/vi.html
@@ -100,29 +96,6 @@ noremap k gk
 noremap <Down> gj
 noremap <Up> gk
 
-"closing brace, quote, etc. completion
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap " ""<LEFT>
-inoremap <expr> ' <SID>CompleteSingleQuote()
-
-function! <SID>CompleteSingleQuote()
-  if getline(".")[col(".") - 2] =~ "[a-zA-Z]"
-    return "'"
-  else
-    return "''\<LEFT>"
-  end
-endfunction
-
-" surround selected area in brackets etc.
-vnoremap f( s(<C-R>")<ESC>
-vnoremap f[ s[<C-R>"]<ESC>
-vnoremap f{ s{<C-R>"}<ESC>
-vnoremap f" s"<C-R>""<ESC>
-vnoremap f' s'<C-R>"'<ESC>
-vnoremap f< s<<C-R>"><ESC>
-
 " search selection
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 
@@ -151,9 +124,6 @@ nnoremap <C-w>w :vsplit<CR>
 nnoremap ] <C-w>>
 nnoremap [ <C-w><
 
-nnoremap <C-n> gT
-nnoremap <C-p> gt
-
 
 
 if !has('win32')
@@ -172,7 +142,7 @@ if !has('win32')
       let dir = strftime("~/.backup/vim/%Y/%m/%d", localtime())
       if !isdirectory(dir)
         call system("mkdir -p ".dir)
-        call system("chown atsushi ".dir)
+        "call system("chown atsushi ".dir)
       endif
       exe "set backupdir=".dir
       unlet dir
@@ -229,7 +199,7 @@ command! DOS edit ++ff=dos
 
 " enable mouse scroll http://bitheap.org/mouseterm/
 if has("mouse")
-  set mouse=a
+  set mouse=vi
 
   " if sc -> copy to clipboard is on, then copy selection to clipboard at left mouse button up
   if has('win32unix') || has('gui') || hasMacOSX
@@ -258,6 +228,10 @@ autocmd FileType * let &l:comments =
 let g:detectindent_preferred_expandtab = 1
 let g:detectindent_preferred_indent = 2
 autocmd BufReadPost * :DetectIndent
+autocmd BufReadPost *.php set shiftwidth=4
+autocmd BufReadPost *.php set tabstop=4
+autocmd BufReadPost *.php set expandtab
+autocmd BufReadPost *.tpl set noexpandtab
 
 
 " https://github.com/jiangmiao/simple-javascript-indenter
@@ -278,14 +252,13 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=DarkGray ctermbg=White
 autocmd VimEnter * set vb t_vb=""
 
 
-" actionscript http://www.vim.org/scripts/script.php?script_id=3275
-au Bufread,BufNewFile *.as set filetype=actionscript
 " Python
 autocmd BufEnter SConstruct set filetype=python
 autocmd BufEnter SConscript set filetype=python
-"yorick highlighted as cpp
-au Bufenter *.i set filetype=cpp
-" .lyx is highlighted as .tex
-au Bufenter *.lyx set filetype=tex
 " ~/.crontab is a crontab file (crontab ~/.crontab)
 au Bufenter .crontab set filetype=crontab
+
+autocmd Bufenter .php set tabstop=4
+autocmd Bufenter .php set shiftwidth=4
+autocmd Bufenter .tpl set noet
+
