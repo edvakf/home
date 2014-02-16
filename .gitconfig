@@ -12,3 +12,10 @@
 	st = status
 	man = help
 	gr = grep
+[core]
+	pager = LESS=-R less
+	excludesfile = ~/.gitexcludesfile
+[rerere]
+	enabled = true
+[push]
+	default = current
