@@ -17,3 +17,7 @@ hardstatus alwayslastline "%`%-w%{=u d}%n %t%{-}%+w"
 altscreen on
 
 autodetach on
+
+# http://d.hatena.ne.jp/wocota/20090824/1251129515
+defencoding utf8
+cjkwidth on
