@@ -15,6 +15,7 @@
 [core]
 	pager = LESS=-R less
 	excludesfile = ~/.gitexcludesfile
+	editor = vim
 [rerere]
 	enabled = true
 [push]
