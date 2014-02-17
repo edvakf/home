@@ -278,11 +278,19 @@ update_vcs_info() {
   LANG=en_US.UTF-8 vcs_info
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
+
+local _cmd=''
+preexec_save_last_command() {
+  _cmd="$1"
+}
+preexec_functions=($preexec_functions preexec_save_last_command)
+
 #カレントディレクトリ変更時/git関連コマンド実行時に情報更新
 chpwd_show_git_info() {
   update_vcs_info
 }
 chpwd_functions=($chpwd_functions chpwd_show_git_info)
+
 precmd_show_git_info() {
   _r=$?
   case "${_cmd}" in
