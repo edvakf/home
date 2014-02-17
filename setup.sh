@@ -6,6 +6,7 @@ ln -s "$DIR/.gitconfig" ~/
 ln -s "$DIR/.gitexcludesfile" ~/
 ln -s "$DIR/.gitmodules" ~/
 ln -s "$DIR/.gitscreenrc" ~/
+ln -s "$DIR/.screenrc" ~/
 ln -s "$DIR/.vim" ~/
 ln -s "$DIR/.vimrc" ~/
 ln -s "$DIR/.zprofile" ~/
