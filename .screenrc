@@ -20,4 +20,5 @@ autodetach on
 
 # http://d.hatena.ne.jp/wocota/20090824/1251129515
 defencoding utf8
+encoding utf8 utf8
 cjkwidth on
