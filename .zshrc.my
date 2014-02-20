@@ -106,10 +106,10 @@ if [ $TERM = "screen" ]; then
   }
   precmd_functions=($precmd_functions precmd_set_screen_title)
 
-  preexec_set_screen_title () {
-     screen -X title "$1"
-  }
-  preexec_functions=($preexec_functions preexec_set_screen_title)
+  #preexec_set_screen_title () {
+     #screen -X title "$1"
+  #}
+  #preexec_functions=($preexec_functions preexec_set_screen_title)
 fi
 
 
