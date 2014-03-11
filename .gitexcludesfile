@@ -2,3 +2,5 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+.idea/
+.DS_Store
