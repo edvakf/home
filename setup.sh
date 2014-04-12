@@ -15,5 +15,4 @@ ln -s "$DIR/.zshrc.my" ~/
 
 cd "$DIR/.terminfo"
 tic mostlike.txt
-ln -s "$DIR/.terminfo" ~/
 cd -
