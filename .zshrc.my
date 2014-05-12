@@ -57,6 +57,8 @@ if [ $MACOSX ]; then
   eval "$(rbenv init -)"
 
   eval "$(pyenv init -)"
+
+  export PATH="/usr/local/heroku/bin:$PATH"
 fi
 
 # http://nion.modprobe.de/blog/archives/569-colored-manpages.html
