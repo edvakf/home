@@ -54,7 +54,9 @@ if [ $MACOSX ]; then
 
   source ~/.phpbrew/bashrc
 
-  [ $MACOSX ] && eval "$(rbenv init -)"
+  eval "$(rbenv init -)"
+
+  eval "$(pyenv init -)"
 fi
 
 # http://nion.modprobe.de/blog/archives/569-colored-manpages.html
