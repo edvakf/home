@@ -4,9 +4,15 @@ let g:hasMacOSX = has("macunix") || (!has('win32unix') && (has('unix') && match(
 
 let mapleader = ","
 
-" vim-pathogen
-call pathogen#runtime_append_all_bundles()
+function IsSudo()
+  return $SUDO_USER != ''
+endfunction
 
+" vim-pathogen
+if !IsSudo()
+  " don't load pathogen plugins if sudo
+  call pathogen#runtime_append_all_bundles()
+endif
 
 " don't append LF at the end of file
 " http://d.hatena.ne.jp/odz/20070111/1168558681
@@ -126,7 +132,7 @@ nnoremap [ <C-w><
 
 
 
-if !has('win32')
+if !has('win32') && !IsSudo()
   set backup
   set backupdir=~/.backup/vim
   set viewdir=~/.backup/view
@@ -224,6 +230,7 @@ autocmd FileType * let &l:comments =
     \join(filter(split(&l:comments, ','), 'v:val =~ "^[sme]"'), ',')
 
 
+if !IsSudo()
 " detectindent http://www.vim.org/scripts/script.php?script_id=1171
 let g:detectindent_preferred_expandtab = 1
 let g:detectindent_preferred_indent = 2
@@ -232,7 +239,7 @@ autocmd BufReadPost *.php set shiftwidth=4
 autocmd BufReadPost *.php set tabstop=4
 autocmd BufReadPost *.php set expandtab
 autocmd BufReadPost *.tpl set noexpandtab
-
+endif
 
 " https://github.com/jiangmiao/simple-javascript-indenter
 let g:SimpleJsIndenter_BriefMode = 1
@@ -261,4 +268,3 @@ au Bufenter .crontab set filetype=crontab
 autocmd Bufenter .php set tabstop=4
 autocmd Bufenter .php set shiftwidth=4
 autocmd Bufenter .tpl set noet
-
