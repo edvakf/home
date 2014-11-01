@@ -15,7 +15,10 @@ fi
 
 export PATH=$HOME/bin:$PATH
 
-export LC_ALL=en_US.UTF-8
+# http://yano3.hatenablog.jp/entry/2012/11/25/234244
+export LANG=en_US.UTF-8
+export LC_ALL=$LANG
+export LC_CTYPE=$LANG
 
 
 ##aliases
