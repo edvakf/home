@@ -2,7 +2,7 @@
 
 # compacked complete list display
 #
-[[ $OSTYPE = "darwin10.0" || $OSTYPE = "darwin11.0" || $OSTYPE = "darwin12.0" || $OSTYPE = "darwin13.0" ]] && [[ $MACOSX = '' ]] && MACOSX='yes'
+[[ "$(uname)" == 'Darwin' ]] && MACOSX='yes'
 [[ $OSTYPE = "cygwin" ]] && [[ $CYGWIN = '' ]] && CYGWIN='yes'
 
 # completion list item width equal to 'ls' item width
