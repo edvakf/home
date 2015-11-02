@@ -12,6 +12,8 @@
 	st = status
 	man = help
 	gr = grep
+	rb = rebase
+	fe = fetch
 [core]
 	pager = LESS=-R less
 	excludesfile = ~/.gitexcludesfile
